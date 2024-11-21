@@ -1,12 +1,10 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 import AXIOS from 'axios';
 
 export default function UpdateProduct() {
   const { productId } = useParams();
-  const [product, setProduct] = useState({});
   const [image, setImage] = useState({ preview: '', data: '' });
   const [pn, setPn] = useState('');
   const [idno, setId] = useState('');
@@ -15,16 +13,10 @@ export default function UpdateProduct() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const formdata = new FormData();
 
-  useEffect(() => {
-    fetchProduct();
-    fetchCategories();
-  }, []);
-
-  const fetchProduct = () => {
+  const fetchProduct = useCallback(() => {
     AXIOS.get(`http://localhost:9000/getproductById/${productId}`)
       .then((response) => {
         const fetchedProduct = response.data.result[0];
-        setProduct(fetchedProduct);
         setPn(fetchedProduct.productName);
         setSelectedCategory(fetchedProduct.category);
         setPrice(fetchedProduct.price);
@@ -33,7 +25,12 @@ export default function UpdateProduct() {
       .catch((error) => {
         console.error(error);
       });
-  };
+  }, [productId]);
+
+  useEffect(() => {
+    fetchProduct();
+    fetchCategories();
+  }, [fetchProduct]);
 
   const fetchCategories = () => {
     AXIOS.get('http://localhost:9000/catgetdata')
@@ -79,12 +76,12 @@ export default function UpdateProduct() {
   return (
     <>
       <Container>
-        <h1> Update Product registration</h1>
+        <h1> Update Product Registration</h1>
         <Row>
           <Col>
             <Form onSubmit={handleSubmit} encType="multipart/form-data">
               <Form.Group>
-                <Form.Label> Product Name</Form.Label>
+                <Form.Label>Product Name</Form.Label>
                 <Form.Control
                   type="text"
                   name="pn"
@@ -140,7 +137,6 @@ export default function UpdateProduct() {
               </Button>
             </Form>
           </Col>
-          <Col></Col>
         </Row>
       </Container>
     </>
