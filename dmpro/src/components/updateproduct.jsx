@@ -15,7 +15,7 @@ export default function UpdateProduct() {
 
   const fetchProduct = useCallback(() => {
     AXIOS.get(
-      `${process.env.REACT_APP_API_BASE_URL}getproductById/${productId}`
+      `${process.env.REACT_APP_API_BASE_URL}/getproductById/${productId}`
     )
       .then((response) => {
         const fetchedProduct = response.data.result[0];
@@ -35,7 +35,7 @@ export default function UpdateProduct() {
   }, [fetchProduct]);
 
   const fetchCategories = () => {
-    AXIOS.get(`${process.env.REACT_APP_API_BASE_URL}catgetdata`)
+    AXIOS.get(`${process.env.REACT_APP_API_BASE_URL}/catgetdata`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -65,7 +65,7 @@ export default function UpdateProduct() {
     formdata.append("file", image.data);
     formdata.append("idn", idno);
     AXIOS.post(
-      `${process.env.REACT_APP_API_BASE_URL}updateproductform/`,
+      `${process.env.REACT_APP_API_BASE_URL}/updateproductform/`,
       formdata,
       {
         "Content-Type": "multipart/form-data",
