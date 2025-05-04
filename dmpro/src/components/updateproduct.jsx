@@ -1,20 +1,22 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
-import { Container, Form, Row, Col, Button } from 'react-bootstrap';
-import AXIOS from 'axios';
+import React, { useEffect, useState, useCallback } from "react";
+import { useParams } from "react-router-dom";
+import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import AXIOS from "axios";
 
 export default function UpdateProduct() {
   const { productId } = useParams();
-  const [image, setImage] = useState({ preview: '', data: '' });
-  const [pn, setPn] = useState('');
-  const [idno, setId] = useState('');
-  const [price, setPrice] = useState('');
+  const [image, setImage] = useState({ preview: "", data: "" });
+  const [pn, setPn] = useState("");
+  const [idno, setId] = useState("");
+  const [price, setPrice] = useState("");
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
   const formdata = new FormData();
 
   const fetchProduct = useCallback(() => {
-    AXIOS.get(`http://localhost:9000/getproductById/${productId}`)
+    AXIOS.get(
+      `${process.env.REACT_APP_API_BASE_URL}/getproductById/${productId}`
+    )
       .then((response) => {
         const fetchedProduct = response.data.result[0];
         setPn(fetchedProduct.productName);
@@ -33,7 +35,7 @@ export default function UpdateProduct() {
   }, [fetchProduct]);
 
   const fetchCategories = () => {
-    AXIOS.get('http://localhost:9000/catgetdata')
+    AXIOS.get("${process.env.REACT_APP_API_BASE_URL}/catgetdata")
       .then((response) => {
         setCategories(response.data);
       })
@@ -57,14 +59,18 @@ export default function UpdateProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    formdata.append('pname', pn);
-    formdata.append('category', selectedCategory);
-    formdata.append('price', price);
-    formdata.append('file', image.data);
-    formdata.append('idn', idno);
-    AXIOS.post('http://localhost:9000/updateproductform/', formdata, {
-      'Content-Type': 'multipart/form-data',
-    })
+    formdata.append("pname", pn);
+    formdata.append("category", selectedCategory);
+    formdata.append("price", price);
+    formdata.append("file", image.data);
+    formdata.append("idn", idno);
+    AXIOS.post(
+      "${process.env.REACT_APP_API_BASE_URL}/updateproductform/",
+      formdata,
+      {
+        "Content-Type": "multipart/form-data",
+      }
+    )
       .then((res) => {
         alert(res.data.msg);
       })

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import AXIOS from 'axios';
-import { Table, Container, Form, Button } from 'react-bootstrap';
+import { useEffect, useState } from "react";
+import AXIOS from "axios";
+import { Table, Container, Form, Button } from "react-bootstrap";
 
 export default function ProductTable() {
   const [products, setProducts] = useState([]);
@@ -10,7 +10,7 @@ export default function ProductTable() {
   }, []);
 
   const fetchProducts = () => {
-    AXIOS.get('http://localhost:9000/getproduct')
+    AXIOS.get("${process.env.REACT_APP_API_BASE_URL}/getproduct")
       .then((response) => {
         setProducts(response.data.result);
       })
@@ -20,7 +20,9 @@ export default function ProductTable() {
   };
 
   const handleDelete = (productId) => {
-    AXIOS.delete(`http://localhost:9000/deleteproduct/${productId}`)
+    AXIOS.delete(
+      `${process.env.REACT_APP_API_BASE_URL}/deleteproduct/${productId}`
+    )
       .then(() => {
         fetchProducts();
       })
@@ -57,7 +59,7 @@ export default function ProductTable() {
                     <img
                       src={`http://localhost:9000/${product.fileurl}`}
                       alt={product.pname}
-                      style={{ width: '150px', height: '150px' }}
+                      style={{ width: "150px", height: "150px" }}
                     />
                   )}
                 </td>

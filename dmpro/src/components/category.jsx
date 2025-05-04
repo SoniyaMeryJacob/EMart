@@ -1,6 +1,6 @@
-import { Row, Col, Container, Form, Button } from 'react-bootstrap';
-import { useState } from 'react';
-import AXIOS from 'axios';
+import { Row, Col, Container, Form, Button } from "react-bootstrap";
+import { useState } from "react";
+import AXIOS from "axios";
 
 function Category() {
   const [fc, setfc] = useState("");
@@ -9,7 +9,7 @@ function Category() {
     e.preventDefault(); // Prevent form submission from reloading the page
     alert(fc);
 
-    AXIOS.post("http://localhost:9000/cat", { fcat: fc })
+    AXIOS.post("${process.env.REACT_APP_API_BASE_URL}/cat", { fcat: fc })
       .then((res) => {
         alert(res.data.msg);
       })
@@ -35,7 +35,9 @@ function Category() {
                   name="fcat"
                   placeholder="Enter the category"
                   onChange={(e) => setfc(e.target.value)}
-                  onInput={(e) => (e.target.value = ("" + e.target.value).toUpperCase())}
+                  onInput={(e) =>
+                    (e.target.value = ("" + e.target.value).toUpperCase())
+                  }
                 />
               </Form.Group>
               <div className="mt-2">{fc}</div>
