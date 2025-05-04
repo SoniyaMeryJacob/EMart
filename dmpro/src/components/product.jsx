@@ -16,7 +16,7 @@ export default function Product() {
   }, []);
 
   const fetchCategories = () => {
-    AXIOS.get(`${process.env.REACT_APP_API_BASE_URL}/catgetdata`)
+    AXIOS.get(`${process.env.REACT_APP_API_BASE_URL}catgetdata`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -44,7 +44,7 @@ export default function Product() {
     formdata.append("category", selectedCategory);
     formdata.append("price", price);
     formdata.append("file", image.data);
-    AXIOS.post(`${process.env.REACT_APP_API_BASE_URL}/productform`, formdata, {
+    AXIOS.post(`${process.env.REACT_APP_API_BASE_URL}productform`, formdata, {
       headers: { "Content-Type": "multipart/form-data" },
     })
 
