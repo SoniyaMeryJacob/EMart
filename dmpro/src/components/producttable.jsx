@@ -10,7 +10,7 @@ export default function ProductTable() {
   }, []);
 
   const fetchProducts = () => {
-    AXIOS.get("${process.env.REACT_APP_API_BASE_URL}/getproduct")
+    AXIOS.get(`${process.env.REACT_APP_API_BASE_URL}/getproduct`)
       .then((response) => {
         setProducts(response.data.result);
       })

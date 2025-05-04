@@ -9,7 +9,7 @@ function Category() {
     e.preventDefault(); // Prevent form submission from reloading the page
     alert(fc);
 
-    AXIOS.post("${process.env.REACT_APP_API_BASE_URL}/cat", { fcat: fc })
+    AXIOS.post(`${process.env.REACT_APP_API_BASE_URL}/cat`, { fcat: fc })
       .then((res) => {
         alert(res.data.msg);
       })
