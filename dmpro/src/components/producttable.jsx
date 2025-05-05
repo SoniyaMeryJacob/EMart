@@ -57,7 +57,7 @@ export default function ProductTable() {
                 <td>
                   {product.fileurl && (
                     <img
-                      src={`http://localhost:9000/${product.fileurl}`}
+                      src={`${process.env.REACT_APP_API_BASE_URL}/${product.fileurl}`}
                       alt={product.pname}
                       style={{ width: "150px", height: "150px" }}
                     />

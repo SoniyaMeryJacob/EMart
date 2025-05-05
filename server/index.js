@@ -13,8 +13,9 @@ api.use(express.static("upload"))
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/prodDB');
-  console.log('Database Connected');
+  require('dotenv').config();
+  await mongoose.connect(process.env.MONGODB_URI);
+    console.log('Database Connected');
 }
 
 //table structure
@@ -179,6 +180,6 @@ api.get('/getproductById/:idn',async(req,res)=>{
 
 
 //server creation 
-api.listen(9000, () => {
-  console.log('Server running at http://localhost:9000');
+api.listen(process.env.PORT, () => {
+  console.log('Server running at http://localhost:${process.env.PORT}');
 });

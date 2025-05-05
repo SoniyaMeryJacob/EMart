@@ -8,7 +8,6 @@ export default function Product() {
   const [price, setps] = useState("");
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const formdata = new FormData();
 
   useEffect(() => {
     // Fetch categories from the backend when the component mounts
@@ -40,6 +39,7 @@ export default function Product() {
 
   const handlePro = (event) => {
     event.preventDefault();
+    const formdata = new FormData();
     formdata.append("pname", pn);
     formdata.append("category", selectedCategory);
     formdata.append("price", price);
