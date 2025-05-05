@@ -3,6 +3,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const multer = require('multer');
 //express object
+require('dotenv').config();
+
 const api = express();
 api.use(cors());
 api.use(express.urlencoded({ extended: true }));
@@ -13,7 +15,6 @@ api.use(express.static("upload"))
 main().catch(err => console.log(err));
 
 async function main() {
-  require('dotenv').config();
   await mongoose.connect(process.env.MONGODB_URI);
     console.log('Database Connected');
 }
