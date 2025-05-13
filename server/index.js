@@ -180,7 +180,7 @@ api.get('/getproductById/:idn',async(req,res)=>{
 
 
 
-//server creation 
+// server creation 
 api.listen(process.env.PORT, () => {
-  console.log('Server running at http://localhost:${process.env.PORT}');
+  console.log(`Server running at http://localhost:${process.env.PORT}`);
 });
